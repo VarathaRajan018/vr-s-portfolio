@@ -1542,14 +1542,18 @@ section {
   .nav-cta { display: none; }
   .mobile-menu-btn { display: flex; }
   
-  .hero-title { font-size: 2.8rem; }
+  .hero-title { font-size: 2.1rem; word-break: break-word; }
   .hero-description { font-size: 1rem; }
-  .rotating-text-wrapper { font-size: 1.25rem; height: 30px; }
+  .rotating-text-wrapper { font-size: 1.25rem; height: 30px; justify-content: center; width: 100%; }
   .rotating-text-box { width: 340px; }
+  .hero-actions { flex-direction: column; width: 100%; max-width: 320px; align-items: stretch; margin: 0 auto; gap: 12px; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .hero-scroll-indicator { display: none; }
   
   @media (max-width: 480px) {
     .rotating-text-wrapper { font-size: 1.08rem; }
     .rotating-text-box { width: 280px; }
+    .hero-title { font-size: 1.8rem; }
   }
   
   .section-title { font-size: 2.2rem; }
