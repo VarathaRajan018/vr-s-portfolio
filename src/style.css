@@ -110,6 +110,12 @@ body.hovered-interactive .cursor-glow {
   background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(139, 92, 246, 0.05) 60%, rgba(0,0,0,0) 100%);
 }
 
+@media (max-width: 992px) {
+  .cursor-dot, .cursor-glow {
+    display: none !important;
+  }
+}
+
 /* --- Interactive Gradients & Background Overlay --- */
 .background-container {
   position: fixed;

@@ -181,14 +181,12 @@ function createOrbitalRings() {
 // --- Floating Procedural Objects ---
 function createFloatingObjects() {
   // Glass Material with premium reflection / transmission attributes
-  const glassMaterial = (color) => new THREE.MeshPhysicalMaterial({
+  const glassMaterial = (color) => new THREE.MeshStandardMaterial({
     color: color,
-    metalness: 0.1,
-    roughness: 0.1,
+    metalness: 0.85,
+    roughness: 0.15,
     transparent: true,
-    opacity: 0.6,
-    transmission: 0.6,
-    thickness: 1.5,
+    opacity: 0.65,
     side: THREE.DoubleSide
   });
 
@@ -363,31 +361,14 @@ function animate() {
     grid.rotation.y = mouse.x * 0.05;
   }
 
-  // 4. Animate Background Star Particles
+  // 4. Animate Background Star Particles (Optimized: Static GPU rotation to avoid CPU buffer uploads)
   if (particles) {
-    const positions = particles.geometry.attributes.position.array;
-    const speeds = particles.userData.speeds;
-    const count = positions.length / 3;
-
-    for (let i = 0; i < count; i++) {
-      // Drifts particles downward slowly
-      positions[i * 3 + 1] -= speeds[i] * 0.03;
-      
-      // Gravitational attraction force towards normalized mouse cursor projected
-      const attractionX = mouse.x * 4;
-      const attractionY = mouse.y * 4;
-      
-      positions[i * 3] += (attractionX - positions[i * 3]) * 0.0004;
-      positions[i * 3 + 1] += (attractionY - positions[i * 3 + 1]) * 0.0004;
-
-      // Reset when particle drops below view
-      if (positions[i * 3 + 1] < -20) {
-        positions[i * 3 + 1] = 20;
-        positions[i * 3] = (Math.random() - 0.5) * 35;
-      }
-    }
-    particles.geometry.attributes.position.needsUpdate = true;
-    particles.rotation.z = time * 0.008;
+    particles.rotation.y = time * 0.015;
+    particles.rotation.x = time * 0.008;
+    
+    // Smooth group parallax drift following mouse
+    particles.position.x += (mouse.x * 2.0 - particles.position.x) * 0.05;
+    particles.position.y += (mouse.y * 2.0 - particles.position.y) * 0.05;
   }
 
   // 5. Pulsing Orbital Rings

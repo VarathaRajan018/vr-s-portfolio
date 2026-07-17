@@ -58,6 +58,9 @@ function initSmoothScroll() {
     duration: 1.1,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
+    syncTouch: false,
+    touchMultiplier: 0,
+    smoothTouch: false,
     orientation: 'vertical',
     gestureOrientation: 'vertical'
   });
